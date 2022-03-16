@@ -1,0 +1,13 @@
+----//Anti-Piracy Bypass\\----
+local bruh = Instance.new("ScreenGui", game:GetService("CoreGui")) --Amazing anti piracy,tescalus
+bruh.Name = "Pendulum Hub"
+--
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Pendulum%20Hub%20Align%20Method.lua"))()
+--Reanim
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Reanimation.lua"))()
+--load lib fix
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GelatekWasTaken/GelatekV2/main/LoadLibrary.lua"))()
+--
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Pendulum%20Hub%20Align%20Method.lua"))()
+--
+warn("DSConverter by Wugawuga#2197/Motorguest")
