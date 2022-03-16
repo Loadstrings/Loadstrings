@@ -10,4 +10,4 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/GelatekWasTaken/Gelat
 --
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Pendulum%20Hub%20Align%20Method.lua"))()
 --
-warn("DSConverter by Wugawuga#2197/Motorguest")
+warn("DSConverter by Wugawuga#2197/Motorguest and WolfyExploits/WolfyExploits#7273")
