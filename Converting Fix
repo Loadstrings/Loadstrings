@@ -1,0 +1,79 @@
+local Mouse,mouse,UserInputService,ContextActionService
+do
+	local CAS = {Actions={}}
+
+	local fakeEvent = function()
+		local t = {_fakeEvent=true}
+		t.Connect = function(self,f)self.Function=f end
+		t.connect = t.Connect
+		return t
+	end
+	local m = {Target=nil,Hit=CFrame.new(),KeyUp=fakeEvent(),KeyDown=fakeEvent(),Button1Up=fakeEvent(),Button1Down=fakeEvent()}
+	local UIS = {InputBegan=fakeEvent(),InputEnded=fakeEvent()}
+	function CAS:BindAction(name,fun,touch,...)
+		CAS.Actions[name] = {Name=name,Function=fun,Keys={...}}
+	end
+	function CAS:UnbindAction(name)
+		CAS.Actions[name] = nil
+	end
+	local function te(self,ev,...)
+		local t = m[ev]
+		if t and t._fakeEvent and t.Function then
+			t.Function(...)
+		end
+	end
+	m.TrigEvent = te
+	UIS.TrigEvent = te
+	local function event()
+		local Player = game:GetService("Players").LocalPlayer
+
+		local Char = Player.Character
+
+		local UISS = game:GetService("UserInputService")
+
+		local input = function(io,a)
+			if a then return end
+			local io = {KeyCode=io.KeyCode,UserInputType=io.UserInputType,UserInputState=io.UserInputState}
+			if io.UserInputType == Enum.UserInputType.MouseButton1 then
+				if io.UserInputState == Enum.UserInputState.Begin then
+					m:TrigEvent("Button1Down")
+				else
+					m:TrigEvent("Button1Up")
+				end
+			else
+				for n,t in pairs(CAS.Actions) do
+					for _,k in pairs(t.Keys) do
+						if k==io.KeyCode then
+							t.Function(t.Name,io.UserInputState,io)
+						end
+					end
+				end
+				if io.UserInputState == Enum.UserInputState.Begin then
+					m:TrigEvent("KeyDown",io.KeyCode.Name:lower())
+					UIS:TrigEvent("InputBegan",io,false)
+				else
+					m:TrigEvent("KeyUp",io.KeyCode.Name:lower())
+					UIS:TrigEvent("InputEnded",io,false)
+				end
+			end
+		end
+		UISS.InputBegan:Connect(input)
+		UISS.InputEnded:Connect(input)
+		local Changed = false
+		local Mouse = Player:GetMouse()
+		local h,t = Mouse.Hit,Mouse.Target
+
+		while wait(1 / 20) do
+			if h~=Mouse.Hit or t~=Mouse.Target then
+				local hm = {isMouse=true,Target=Mouse.Target,Hit=Mouse.Hit}
+				h,t=Mouse.Hit,Mouse.Target
+				if hm.isMouse then
+					m.Target = io.Target
+					m.Hit = io.Hit
+				end
+			end
+		end
+	end
+	coroutine.wrap(event)()
+	Mouse,mouse,UserInputService,ContextActionService = m,m,UIS,CAS
+end
